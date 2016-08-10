@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import GifsTemp from '../components/GifsTemp'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as Actions from '../'
-// import './App.css';
-// import SearchBar from './components/searchBar.js'
-// import GifList from './components/gifList.js'
-// import request from 'superagent';
+import * as Actions from '../actions'
+import SearchBar from '../components/searchBar'
 
 class App extends Component {
   render() {
     return ( 
       <div> 
-        <GifsTemp gifs={ this.props.gifs } />
+        <SearchBar onTermChange={this.props.actions.requestGifs} />
       </div>
       )
     } 
@@ -25,7 +22,13 @@ class App extends Component {
     }
   }
 
+  function mapDispatchToProps(dispatch){
+    return {
+      actions: bindActionCreators(Actions, dispatch)
+    };
+  }
 
-export default connect(mapStateToProps)(App)
+
+export default connect(mapStateToProps, mapDispatchToProps)(App)
 
 
